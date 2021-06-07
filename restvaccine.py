@@ -22,6 +22,10 @@ LOCATION = '//*[@id="a268ffc4-333e-4813-ae3f-9d9f40c40200"]/fieldset/label[1]/in
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
@@ -34,10 +38,11 @@ email_field = '//*[@id="db67108b-6627-43d7-982e-2b11c6b5b26e"]'
 phone_field = '//*[@id="41df7f89-d7b9-4203-b18a-8f4c86023f89"]'
 send = '//*[@id="58efbdd7-1555-4202-aec4-30c5745c4797"]'
 
+cookieaccept = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "CybotCookiebotDialogBodyButtonAccept")))
+cookieaccept.click()
 driver.find_element_by_xpath(name_field).send_keys(NAME)
 driver.find_element_by_xpath(dob_field).send_keys(DOB)
 driver.find_element_by_xpath(email_field).send_keys(EMAIL)
 driver.find_element_by_xpath(phone_field).send_keys(PHONE)
 driver.find_element_by_xpath(LOCATION).click()
 driver.find_element_by_xpath(send).click()
-
